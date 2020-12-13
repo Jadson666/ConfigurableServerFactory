@@ -1,16 +1,12 @@
+const moment = require('moment')
+
 const BASE_PATH = '/shopback'
-
-const successObj = { hello: 'yes i do' }
-
 const FROM = 'hello@shopback.com'
-
 const TIME_STAMP_HEADER_NAME = 'X-SHOPBACK-TIMESTAMP'
-
 const AGENT_HEADER = 'X-SHOPBACK-AGENT'
-
 const DOMAIN_FROM = 'www.shopback.com'
-
 const VALID_COOKIE = 'sbcookie'
+const SUCCESS_RESPONSE = { hello: 'yes i do' }
 
 const config = {
   isYaml: true,
@@ -49,6 +45,14 @@ const config = {
     },
     {
       method: 'get',
+      url: `${BASE_PATH}/resource`,
+      callBack: (req, res, next) => {
+        req.url = req.url.replace(`${BASE_PATH}/resource`, `${BASE_PATH}/static/assets`)
+        next()
+      }
+    },
+    {
+      method: 'get',
       url: `${BASE_PATH}/api/*`,
       callBack: (req, res, next) => {
         res.set({ From: FROM })
@@ -77,7 +81,7 @@ const config = {
       validateHeader: {
         name: 'Content-Type',
         regex: /^application\/json$/,
-        error: 'Content-Type is not exist!'
+        error: 'Content-Type is not exist or correct!'
       }
     },
     {
@@ -94,12 +98,12 @@ const config = {
       validateHeader: {
         name: 'Content-Type',
         regex: /^application\/json$/,
-        error: 'Content-Type is not exist!'
+        error: 'Content-Type is not exist or correct!'
       }
     },
     {
       method: 'all',
-      callBack: (req, res, next) => res.send(successObj)
+      callBack: (req, res, next) => res.send(SUCCESS_RESPONSE)
     }
   ]
 }
