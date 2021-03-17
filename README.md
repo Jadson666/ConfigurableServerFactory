@@ -43,5 +43,9 @@ app.get(`${BASE_PATH}/resource`, (req, res) => {
     next()
   }
 })
-
 ```
+
+## Available script
+
+### `yarn start` 
+to start the express server
