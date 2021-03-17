@@ -1,11 +1,11 @@
 const moment = require('moment')
 
-const BASE_PATH = '/shopback'
-const FROM = 'hello@shopback.com'
-const TIME_STAMP_HEADER_NAME = 'X-SHOPBACK-TIMESTAMP'
-const AGENT_HEADER = 'X-SHOPBACK-AGENT'
-const DOMAIN_FROM = 'www.shopback.com'
-const VALID_COOKIE = 'sbcookie'
+const BASE_PATH = '/hello'
+const FROM = 'hello@hello.com'
+const TIME_STAMP_HEADER_NAME = 'X-HELLO-TIMESTAMP'
+const AGENT_HEADER = 'X-HELLO-AGENT'
+const DOMAIN_FROM = 'www.hello.com'
+const VALID_COOKIE = 'hellocookie'
 const SUCCESS_RESPONSE = { hello: 'yes i do' }
 
 const config = {

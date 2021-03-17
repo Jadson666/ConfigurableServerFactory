@@ -4,31 +4,13 @@ const yaml = require('json2yaml')
 const bodyParser = require('body-parser')
 const jsYaml = require('js-yaml')
 
-/**
- * Author: Jason Lin
- * Usage: you can pass the config object into factory or use standard 
- * express function to add route, like router.get()
- *   I.Config Object Schema:
- *      1. isYaml - boolean(optional): request and response format, which are default to json
- *      2. rules - array of object:
- *        a. method - string: http method name in [all, use, get, post, put, delete]
- *        b. url - string(optional): route path
- *        c. callBack - function(optional): callBack for this rule
- *        d. validateHeader - object(optional): properties are
- *          A. name: header name
- *          B. regex: regex to valid header
- *          C. error: throw the error if the validation is failed
- *        e. validateCookies - object(optional): the usage is as same as validateHeader
- *        f. removeQueryString - boolean(optional): remove the url query string it's true
- */
-
 const methodMapping = {
   all: 'use',
   use: 'use',
   get: 'get',
   post: 'post',
   put: 'put',
-  delete: 'delete',
+  delete: 'delete'
 }
 
 const ConfigurableServerFactory = ({ isYaml = false, rules = [] }) => {
@@ -55,7 +37,13 @@ const ConfigurableServerFactory = ({ isYaml = false, rules = [] }) => {
 
   rules.forEach((rule) => {
     const funcArray = []
-    const { callBack, url = '*', removeQueryString, validateCookies, validateHeader } = rule
+    const {
+      callBack,
+      url = '*',
+      removeQueryString,
+      validateCookies,
+      validateHeader
+    } = rule
     const method = methodMapping[rule.method]
     if (!method) return
 
@@ -64,7 +52,7 @@ const ConfigurableServerFactory = ({ isYaml = false, rules = [] }) => {
       const validateFunc = ({ headers }, res, next) => {
         console.log({
           headers,
-          pass: regex.test(headers[name.toLowerCase()]),
+          pass: regex.test(headers[name.toLowerCase()])
         })
         if (regex.test(headers[name.toLowerCase()])) {
           next()
